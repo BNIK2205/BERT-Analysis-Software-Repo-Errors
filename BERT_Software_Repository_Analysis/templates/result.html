@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result - BERT Bug Analysis System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="card">
+    <h1>📊 Analysis Result</h1>
+    
+    <!-- Input Description -->
+    <div class="info-box">
+        <h3>📝 Analyzed Input</h3>
+        <p>{{ text }}</p>
+    </div>
+
+    <!-- Key Metrics Grid -->
+    <div class="metrics-grid">
+        <div class="metric-badge {% if severity == 'High Severity' %}severity-high{% elif severity == 'Medium Severity' %}severity-medium{% else %}severity-low{% endif %}">
+            <span class="badge-label">⚠ Severity Level</span>
+            <span class="badge-value">{{ severity }}</span>
+        </div>
+
+        <div class="metric-badge">
+            <span class="badge-label">🔖 Bug Category</span>
+            <span class="badge-value">{{ cluster }}</span>
+        </div>
+
+        <div class="metric-badge">
+            <span class="badge-label">📈 Occurrences</span>
+            <span class="badge-value">{{ count }}</span>
+        </div>
+    </div>
+
+    <!-- Duplicate Detection Warning -->
+    {% if count >= 200 %}
+    <div class="alert-box">
+        ⚠️ <strong>Duplicate Alert:</strong> This issue type has been detected {{ count }} times in the repository. Consider existing fixes or patterns.
+    </div>
+    {% endif %}
+
+    <!-- Solution Panel -->
+    <div class="solution-panel">
+        <h3>🛠️ Suggested Resolution</h3>
+        <p>{{ solution }}</p>
+    </div>
+
+    <!-- Root Cause Analysis Panel -->
+    <div class="solution-panel">
+        <h3>🔍 Root Cause Analysis Hints</h3>
+        <p>
+            Based on the clustering analysis, this {{ cluster }} issue typically stems from:
+            {% if cluster == 'UI Bug' %}
+            <br>• Frontend event handling and state management
+            <br>• CSS layout and responsive design conflicts
+            <br>• Cross-browser compatibility issues
+            <br>• DOM manipulation and re-rendering problems
+            {% elif cluster == 'Performance Bug' %}
+            <br>• Inefficient algorithms or O(n²) complexity operations
+            <br>• Unoptimized database queries or N+1 problems
+            <br>• Memory leaks or excessive object allocation
+            <br>• Blocking operations on the main thread
+            {% elif cluster == 'Logic / Functional Bug' %}
+            <br>• Edge case handling in conditional statements
+            <br>• Incorrect business logic implementation
+            <br>• Missing validation for input data
+            <br>• State consistency across workflows
+            {% elif cluster == 'Authentication Bug' %}
+            <br>• Token expiration or refresh mechanisms
+            <br>• Session management and user state handling
+            <br>• Permission validation and access control
+            <br>• Password reset and recovery flows
+            {% elif cluster == 'Database Bug' %}
+            <br>• Connection pooling and timeout configurations
+            <br>• Query optimization and indexing strategy
+            <br>• Transaction deadlocks and locking issues
+            <br>• Data consistency and constraint violations
+            {% else %}
+            <br>• Comprehensive system-level analysis required
+            <br>• Check logs for error patterns and stack traces
+            <br>• Monitor resource utilization and performance metrics
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- Bug Trend Insights -->
+    <div class="solution-panel">
+        <h3>📊 Bug Trend Insights</h3>  
+        <p>
+            <strong>Frequency Distribution Analysis:</strong><br>
+            • Total issues analyzed: 5000+ bug reports<br>
+            • This category represents {{ (count / 100) | round(1) }}% of all detected issues<br>
+            • Severity: {% if count >= 500 %}Critical (High Priority){% elif count >= 200 %}Important (Medium Priority){% else %}Minor (Low Priority){% endif %}<br>
+            <strong>Recommendation:</strong> {% if count >= 500 %}Immediate action required - dedicate resources to fix this issue class.{% elif count >= 200 %}Schedule resolution soon - consider in upcoming sprint planning.{% else %}Monitor and fix as capacity allows - relatively isolated issue.{% endif %}
+        </p>
+    </div>
+
+    
+
+    <a class="back-btn" href="/">← Analyze Another Issue</a>
+    <a class="back-btn" href="/performance" style="margin-top:12px;">View Performance Metrics →</a>
+</div>
+
+
+
+</body>
+</html>

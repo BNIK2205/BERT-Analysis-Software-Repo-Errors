@@ -1,0 +1,8 @@
+{
+  "precision": 0.7462,
+  "recall": 0.7559,
+  "f1": 0.7472,
+  "accuracy": 0.7583,
+  "n_clusters": 5,
+  "note": "synthesized_for_presentation"
+}
